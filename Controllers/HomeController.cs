@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using InterfaceWEBHealthcare.Models;
 using System.Net.Http;
 using InterfaceWEBHealthcare.Models.Patient;
-
+using InterfaceWEBHealthcare.Models.StaticData;
 
 namespace InterfaceWEBHealthcare.Controllers
 {
@@ -55,6 +55,29 @@ namespace InterfaceWEBHealthcare.Controllers
         }
         public IActionResult Hospitals()
         {
+            using (var client = new HttpClient())
+            {
+                List<Hospital> HospitalList = null;
+
+                string TraaceId = "455";
+                double Latitude = 455555.2;
+                double Longitude = 455555.2;
+                string AuthKey= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFtaWxhcHJhZ2VldGhAZ21haWwuY29tIiwibmFtZWlkIjoiYW1pbGFwcmFnZWV0aEBnbWFpbC5jb20iLCJyb2xlIjoicGF0aWVudCIsIm5iZiI6MTU5Njg4NDgxNCwiZXhwIjoxNjAxNjg0ODE0LCJpYXQiOjE1OTY4ODQ4MTQsImlzcyI6Imh0dHA6Ly9teXNpdGUuY29tIiwiYXVkIjoiaHR0cDovL215YXVkaWVuY2UuY29tIn0.VtV9yxsVvGhOyfB55L0H3R0yvifVJOe-D28bpT_KpqM";
+                
+                client.BaseAddress = new Uri("https://localhost:5001/");
+                //HTTP GET
+                var responseTask = client.GetAsync("EHealthCareAPI/Patient/" + TraaceId + "/"+ Latitude +"/"+ Longitude+"/"+ AuthKey);
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<List<Hospital>>();
+                    readTask.Wait();
+
+                    HospitalList = readTask.Result;
+                }
+            }
             return View();
         }
         public IActionResult Privacy()
