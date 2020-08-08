@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace InterfaceWEBHealthcare.Models.Patient.PatientResponse
+namespace InterfaceWEBHealthcare.Models.Patient
 {
      public class  PatientResponse
     {
