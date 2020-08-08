@@ -1,13 +1,15 @@
-﻿@{
+﻿@using InterfaceWEBHealthcare.Models.Patient.PatientResponse;
+@model PatientResponse;
+@{
     ViewData["Title"] = "Home Page";
 }
 
     <div class="row mb-auto">
         <div class="col-md-4">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
+                <img class="card-img-top" src="http://127.0.0.1:8887/profile.png" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <h5 class="card-title">@Model.PatientDetails.PatientData.Alias</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
                 <ul class="list-group list-group-flush">
