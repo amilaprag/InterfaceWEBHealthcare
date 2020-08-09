@@ -10,6 +10,7 @@ using System.Net.Http;
 using InterfaceWEBHealthcare.Models.Patient;
 using InterfaceWEBHealthcare.Models.StaticData;
 using InterfaceWEBHealthcare.Models.Doctors;
+using InterfaceWEBHealthcare.Models.Appoinment;
 
 namespace InterfaceWEBHealthcare.Controllers
 {
@@ -104,6 +105,33 @@ namespace InterfaceWEBHealthcare.Controllers
                     readTask.Wait();
 
                     DoctorDataList = readTask.Result;
+                }
+            }
+            return View();
+        }
+
+        public IActionResult MyAppoinmets()
+        {
+            using (var client = new HttpClient())
+            {
+                List<Appoinments> AppoinmentsList = null;
+
+                string TraaceId = "1123";
+                int PatientMasterID = 3001;
+                string AuthKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFtaWxhcHJhZ2VldGhAZ21haWwuY29tIiwibmFtZWlkIjoiYW1pbGFwcmFnZWV0aEBnbWFpbC5jb20iLCJyb2xlIjoicGF0aWVudCIsIm5iZiI6MTU5Njk4MzEwOCwiZXhwIjoxNjAxNzgzMTA4LCJpYXQiOjE1OTY5ODMxMDgsImlzcyI6Imh0dHA6Ly9teXNpdGUuY29tIiwiYXVkIjoiaHR0cDovL215YXVkaWVuY2UuY29tIn0.9DwOuSeERmBuKNRzm-Tyu51I3UjlG2GZFAPleLdkr5U";
+
+                client.BaseAddress = new Uri("https://localhost:5001/EHealthCareAPI/Appoinment/");
+                //HTTP GET
+                var responseTask = client.GetAsync(TraaceId + "/" + PatientMasterID + "/" + AuthKey);
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<List<Appoinments>>();
+                    readTask.Wait();
+
+                    AppoinmentsList = readTask.Result;
                 }
             }
             return View();
