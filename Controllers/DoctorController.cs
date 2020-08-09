@@ -15,11 +15,11 @@ using InterfaceWEBHealthcare.Models.Treatments;
 
 namespace InterfaceWEBHealthcare.Controllers
 {
-    public class HomeController : Controller
+    public class DoctorController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public DoctorController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
