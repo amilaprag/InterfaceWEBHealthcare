@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using InterfaceWEBHealthcare.Models.Patient;
-//using InterfaceWEBHealthcare.Encryption;
+using InterfaceWEBHealthcare.Encryption;
 using System.ComponentModel.DataAnnotations.Schema;
 using InterfaceWEBHealthcare.Models.Appoinment;
 
@@ -35,7 +35,7 @@ namespace InterfaceWEBHealthcare.Models.Treatments
         public PatientMasterData Patient { get; set; }
 
         //RelationShip between Key
-      //  public KeyInfo KeyInfo { get; set; }
+        public KeyInfo KeyInfo { get; set; }
 
         //RelationShip between Key
         public Appoinments Appoinment { get; set; }

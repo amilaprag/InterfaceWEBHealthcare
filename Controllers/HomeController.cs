@@ -11,6 +11,7 @@ using InterfaceWEBHealthcare.Models.Patient;
 using InterfaceWEBHealthcare.Models.StaticData;
 using InterfaceWEBHealthcare.Models.Doctors;
 using InterfaceWEBHealthcare.Models.Appoinment;
+using InterfaceWEBHealthcare.Models.Treatments;
 
 namespace InterfaceWEBHealthcare.Controllers
 {
@@ -132,6 +133,33 @@ namespace InterfaceWEBHealthcare.Controllers
                     readTask.Wait();
 
                     AppoinmentsList = readTask.Result;
+                }
+            }
+            return View();
+        }
+
+        public IActionResult Prescriptions()
+        {
+            using (var client = new HttpClient())
+            {
+                List<Prescription> PrescriptionsList = null;
+
+                string TraaceId = "1123";
+                int PatientMasterID = 3001;
+                string AuthKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFtaWxhcHJhZ2VldGhAZ21haWwuY29tIiwibmFtZWlkIjoiYW1pbGFwcmFnZWV0aEBnbWFpbC5jb20iLCJyb2xlIjoicGF0aWVudCIsIm5iZiI6MTU5MTY0NDUzOSwiZXhwIjoxNTk2NDQ0NTM5LCJpYXQiOjE1OTE2NDQ1MzksImlzcyI6Imh0dHA6Ly9teXNpdGUuY29tIiwiYXVkIjoiaHR0cDovL215YXVkaWVuY2UuY29tIn0.kuxSi6EkCIH50fO9C6o2-KHWvZ3G6C_1nrcCSV-FRic";
+
+                client.BaseAddress = new Uri("https://localhost:5001/EHealthCareAPI/Treatments/");
+                //HTTP GET
+                var responseTask = client.GetAsync("treatMenthistory/"+PatientMasterID + "/" + TraaceId + "/" + AuthKey);
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<List<Prescription>>();
+                    readTask.Wait();
+
+                    PrescriptionsList = readTask.Result;
                 }
             }
             return View();
