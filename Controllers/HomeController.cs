@@ -18,6 +18,7 @@ namespace InterfaceWEBHealthcare.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        public static string UserNm ;
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -35,6 +36,7 @@ namespace InterfaceWEBHealthcare.Controllers
                 PatientMasterDataObj.Username = "prageeth1@gmail.com";
                 PatientMasterDataObj.Password = "123abcd";
                 PatientMasterDataObj.TraceId = "123456";
+                UserNm = PatientMasterDataObj.Username;
 
                 var postTask = client.PostAsJsonAsync<PatientMasterData>("Patient/ValidatePatientRS", PatientMasterDataObj);
                 postTask.Wait();
@@ -90,6 +92,7 @@ namespace InterfaceWEBHealthcare.Controllers
             {
                 List<DoctorData> DoctorDataList = null;
 
+                string i = UserNm;
                 string TraaceId = "1123";
                 int DoctorID = 1002;
                 string AuthKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFtaWxhcHJhZ2VldGhAZ21haWwuY29tIiwibmFtZWlkIjoiYW1pbGFwcmFnZWV0aEBnbWFpbC5jb20iLCJyb2xlIjoicGF0aWVudCIsIm5iZiI6MTU5Njg4NDgxNCwiZXhwIjoxNjAxNjg0ODE0LCJpYXQiOjE1OTY4ODQ4MTQsImlzcyI6Imh0dHA6Ly9teXNpdGUuY29tIiwiYXVkIjoiaHR0cDovL215YXVkaWVuY2UuY29tIn0.VtV9yxsVvGhOyfB55L0H3R0yvifVJOe-D28bpT_KpqM";
