@@ -81,6 +81,7 @@ namespace InterfaceWEBHealthcare.Controllers
                     readTask.Wait();
 
                     HospitalList = readTask.Result;
+                    return View(HospitalList);
                 }
             }
             return View();
