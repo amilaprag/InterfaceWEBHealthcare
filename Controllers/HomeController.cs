@@ -89,10 +89,10 @@ namespace InterfaceWEBHealthcare.Controllers
 
         public IActionResult Doctors()
         {
+            List<DoctorData> DoctorDataList = null;
             using (var client = new HttpClient())
             {
-                List<DoctorData> DoctorDataList = null;
-
+             
                 string i = UserNm;
                 string TraaceId = "1123";
                 int DoctorID = 1002;
@@ -112,15 +112,14 @@ namespace InterfaceWEBHealthcare.Controllers
                     DoctorDataList = readTask.Result;
                 }
             }
-            return View();
+            return View(DoctorDataList);
         }
 
-        public IActionResult MyAppoinmets()
+        public IActionResult MyAppoinments()
         {
+            List<Appoinments> AppoinmentsList = null;
             using (var client = new HttpClient())
             {
-                List<Appoinments> AppoinmentsList = null;
-
                 string TraaceId = "1123";
                 int PatientMasterID = 3001;
                 string AuthKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFtaWxhcHJhZ2VldGhAZ21haWwuY29tIiwibmFtZWlkIjoiYW1pbGFwcmFnZWV0aEBnbWFpbC5jb20iLCJyb2xlIjoicGF0aWVudCIsIm5iZiI6MTU5Njk4MzEwOCwiZXhwIjoxNjAxNzgzMTA4LCJpYXQiOjE1OTY5ODMxMDgsImlzcyI6Imh0dHA6Ly9teXNpdGUuY29tIiwiYXVkIjoiaHR0cDovL215YXVkaWVuY2UuY29tIn0.9DwOuSeERmBuKNRzm-Tyu51I3UjlG2GZFAPleLdkr5U";
@@ -139,15 +138,14 @@ namespace InterfaceWEBHealthcare.Controllers
                     AppoinmentsList = readTask.Result;
                 }
             }
-            return View();
+            return View(AppoinmentsList);
         }
 
         public IActionResult Prescriptions()
         {
+            List<Prescription> PrescriptionsList = null;
             using (var client = new HttpClient())
             {
-                List<Prescription> PrescriptionsList = null;
-
                 string TraaceId = "1123";
                 int PatientMasterID = 3001;
                 string AuthKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFtaWxhcHJhZ2VldGhAZ21haWwuY29tIiwibmFtZWlkIjoiYW1pbGFwcmFnZWV0aEBnbWFpbC5jb20iLCJyb2xlIjoicGF0aWVudCIsIm5iZiI6MTU5MTY0NDUzOSwiZXhwIjoxNTk2NDQ0NTM5LCJpYXQiOjE1OTE2NDQ1MzksImlzcyI6Imh0dHA6Ly9teXNpdGUuY29tIiwiYXVkIjoiaHR0cDovL215YXVkaWVuY2UuY29tIn0.kuxSi6EkCIH50fO9C6o2-KHWvZ3G6C_1nrcCSV-FRic";
@@ -166,7 +164,7 @@ namespace InterfaceWEBHealthcare.Controllers
                     PrescriptionsList = readTask.Result;
                 }
             }
-            return View();
+            return View(PrescriptionsList);
         }
 
         public IActionResult Privacy()

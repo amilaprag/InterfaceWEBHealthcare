@@ -1,29 +1,31 @@
-﻿@{
+﻿@using InterfaceWEBHealthcare.Models.Treatments;
+@model List<Prescription>;
+@{
     ViewData["Title"] = "Privacy Policy";
 }
 
-<script type="text/javascript">
-            $(function () {
-                $("#datetimepicker1").datetimepicker();
-            });
-    </script>
 
-<div class="card align-content-center" style="width:45rem;">
-        <img class="card-img-top" src="http://127.0.0.1:8887/Appoinment.jpg"  height="155" width="140" alt="Card image cap">
-        <div class="card-body">
-            <form class="form-inline">
-                <div class="form-group mx-sm-3 mb-2">
-                    <label for="inputPassword2" class="form-control">Problem Brief</label>
-                    <input type="text" class="form-control" id="inputPassword2" placeholder="Password">
-                </div>
-            </form>
-            <div class="form-group row">
-                <label for="example-datetime-local-input" class="col-2 col-form-label">Date and time</label>
-                <div class="col-10">
-                    <input class="form-control" type="datetime"  id="example-datetime-local-input">
-                </div>
-            </div>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-    </div>
-
+<table class="table table-bordered" id="tblDataTable">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Prescription Id</th>
+            <th scope="col">Appoinment Date</th>
+            <th colspan="2" class="text-md-center">Operations</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr id="trData">
+            <th scope="row"><span class="pd-CourseId">@item.PrescriptionID</span></th>
+            <td><span class="pd-CourseCode">@item.PrescriptionDate</span></td>
+            <td>
+                <button type="button" class="btnEdit btn btn-danger btn-sm" name="btnEdit" id="btnEdit">View Medicine</button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-success btn-sm" @*onclick="location.href='@Url.Action("Delete", "Course",new { Id = item.CourseId })'"*@>Remove From List </button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
