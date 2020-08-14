@@ -25,6 +25,36 @@ namespace InterfaceWEBHealthcare.Controllers
             _logger = logger;
         }
 
+        public PatientResponse PatientResponseDetails()
+        {
+            using (var client = new HttpClient())
+            {
+                PatientResponse PatientResponseReturnObj = new PatientResponse();
+                client.BaseAddress = new Uri("https://localhost:5001/EHealthCareAPI/");
+
+                PatientMasterData PatientMasterDataObj = new PatientMasterData();
+                PatientMasterDataObj.Authkey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFtaWxhcHJhZ2VldGhAZ21haWwuY29tIiwibmFtZWlkIjoiYW1pbGFwcmFnZWV0aEBnbWFpbC5jb20iLCJyb2xlIjoicGF0aWVudCIsIm5iZiI6MTU5Njg4NDgxNCwiZXhwIjoxNjAxNjg0ODE0LCJpYXQiOjE1OTY4ODQ4MTQsImlzcyI6Imh0dHA6Ly9teXNpdGUuY29tIiwiYXVkIjoiaHR0cDovL215YXVkaWVuY2UuY29tIn0.VtV9yxsVvGhOyfB55L0H3R0yvifVJOe-D28bpT_KpqM";
+                PatientMasterDataObj.Username = "prageeth1@gmail.com";
+                PatientMasterDataObj.Password = "123abcd";
+                PatientMasterDataObj.TraceId = "123456";
+                UserNm = PatientMasterDataObj.Username;
+
+                var postTask = client.PostAsJsonAsync<PatientMasterData>("Patient/ValidatePatientRS", PatientMasterDataObj);
+                postTask.Wait();
+
+                var result = postTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var response = result.Content.ReadAsAsync<PatientResponse>();
+                    response.Wait();
+
+                    PatientResponseReturnObj = response.Result;
+                    return PatientResponseReturnObj;
+                }
+                return PatientResponseReturnObj;
+            }
+        }
+
         public IActionResult Index()
         {
             using (var client = new HttpClient())
@@ -60,10 +90,9 @@ namespace InterfaceWEBHealthcare.Controllers
         }
         public IActionResult Hospitals()
         {
+            List<Hospital> HospitalList = null;
             using (var client = new HttpClient())
             {
-                List<Hospital> HospitalList = null;
-
                 string TraaceId = "455";
                 double Latitude = 455555.2;
                 double Longitude = 455555.2;
@@ -81,10 +110,10 @@ namespace InterfaceWEBHealthcare.Controllers
                     readTask.Wait();
 
                     HospitalList = readTask.Result;
-                    return View(HospitalList);
                 }
             }
-            return View();
+            ViewBag.Message = PatientResponseDetails();
+            return View(HospitalList);
         }
 
         public IActionResult Doctors()

@@ -4,27 +4,8 @@
     var data = ViewBag.Message;
 }
 
-<div class="row mb-auto">
-    <div class="col-md-4">
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="http://127.0.0.1:8887/profile.png" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">User Profile : @data.PatientDetails.PatientData.Alias</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Name : @data.PatientDetails.PatientData.Name</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Vestibulum at eros</li>
-            </ul>
-            <div class="card-body">
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-8">
-        <div class="card border-primary mb-3 align-content-center" style="max-width: 45rem;">
+
+        <div class="card border-primary mb-3 align-content-center">
             <div class="card-header text-primary">
                 <center> <h5 class="card-title">Find Best Hospital</h5></center>
             </div>
@@ -106,5 +87,3 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
