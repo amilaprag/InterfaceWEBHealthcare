@@ -167,6 +167,7 @@ namespace InterfaceWEBHealthcare.Controllers
                     AppoinmentsList = readTask.Result;
                 }
             }
+            ViewBag.Message = PatientResponseDetails();
             return View(AppoinmentsList);
         }
 
