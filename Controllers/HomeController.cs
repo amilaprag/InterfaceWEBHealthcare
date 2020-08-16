@@ -83,9 +83,50 @@ namespace InterfaceWEBHealthcare.Controllers
             }
             return View();
         }
-        
+
+        public IActionResult PostAppoinment()
+        {
+            using (var client = new HttpClient())
+            {
+                AppoinmentSucessResponse AppoinmentSucessResponse = new AppoinmentSucessResponse();
+                Appoinments AppoinmentObj = new Appoinments();
+                Doctor DoctorObj = new Doctor();
+                Hospital HospitalObj = new Hospital();
+                PatientMasterData PatientMasterDataObj = new PatientMasterData();
+
+                PatientMasterDataObj.PatientMasterDataID = 3002;
+                HospitalObj.HospitalID = 1002;
+                DoctorObj.DoctorID = 1009;
+
+                AppoinmentObj.TraceId = "455";
+                AppoinmentObj.TimeSlot = "evening";
+                AppoinmentObj.Doctor = DoctorObj;
+                AppoinmentObj.ProblemBrief = "";
+                AppoinmentObj.AppoinmentDate = Convert.ToDateTime("2020-11-05");
+                AppoinmentObj.Age = "29";
+                AppoinmentObj.Hospital = HospitalObj;
+                AppoinmentObj.Patient = PatientMasterDataObj;
+                AppoinmentObj.Authkey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFtaWxhcHJhZ2VldGhAZ21haWwuY29tIiwibmFtZWlkIjoiYW1pbGFwcmFnZWV0aEBnbWFpbC5jb20iLCJyb2xlIjoicGF0aWVudCIsIm5iZiI6MTU5Njg4NDgxNCwiZXhwIjoxNjAxNjg0ODE0LCJpYXQiOjE1OTY4ODQ4MTQsImlzcyI6Imh0dHA6Ly9teXNpdGUuY29tIiwiYXVkIjoiaHR0cDovL215YXVkaWVuY2UuY29tIn0.VtV9yxsVvGhOyfB55L0H3R0yvifVJOe-D28bpT_KpqM";
+
+                client.BaseAddress = new Uri("https://localhost:5001/EHealthCareAPI/");
+                //HTTP GET
+                var postTask = client.PostAsJsonAsync<Appoinments>("Appoinment", AppoinmentObj);
+                postTask.Wait();
+
+                var result = postTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<AppoinmentSucessResponse>();
+                    readTask.Wait();
+                    AppoinmentSucessResponse = readTask.Result;
+                }
+            }
+            ViewBag.Message = PatientResponseDetails();
+            return View();
+        }
         public IActionResult Appoinment()
         {
+            ViewBag.Message = PatientResponseDetails();
             return View();
         }
         public IActionResult Hospitals()
@@ -194,8 +235,56 @@ namespace InterfaceWEBHealthcare.Controllers
                     PrescriptionsList = readTask.Result;
                 }
             }
+            ViewBag.Message = PatientResponseDetails();
             return View(PrescriptionsList);
         }
+
+        public IActionResult MedicineList(int GetPrescriptionID)
+        {
+            List<Medicine> MedicineList = new List<Medicine>();
+            PrescriptionResponse PrescriptionsObj = new PrescriptionResponse();
+
+            using (var client = new HttpClient())
+            {
+                string TraaceId = "1123";
+                int PrescriptionID = GetPrescriptionID;
+                PrescriptionID = 50012;
+                string AuthKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFtaWxhcHJhZ2VldGhAZ21haWwuY29tIiwibmFtZWlkIjoiYW1pbGFwcmFnZWV0aEBnbWFpbC5jb20iLCJyb2xlIjoicGF0aWVudCIsIm5iZiI6MTU5MTY0NDUzOSwiZXhwIjoxNTk2NDQ0NTM5LCJpYXQiOjE1OTE2NDQ1MzksImlzcyI6Imh0dHA6Ly9teXNpdGUuY29tIiwiYXVkIjoiaHR0cDovL215YXVkaWVuY2UuY29tIn0.kuxSi6EkCIH50fO9C6o2-KHWvZ3G6C_1nrcCSV-FRic";
+
+                client.BaseAddress = new Uri("https://localhost:5001/EHealthCareAPI/Treatments/");
+                //HTTP GET
+                var responseTask = client.GetAsync(PrescriptionID + "/" + TraaceId + "/" + AuthKey);
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<PrescriptionResponse>();
+                    readTask.Wait();
+
+                    PrescriptionsObj = readTask.Result;
+                      foreach (var Mitem in PrescriptionsObj.Medicine)
+                        {
+                            Medicine MedicineObj = new Medicine();
+                            MedicineObj.Strength = Mitem.Strength;
+                            MedicineObj.Form = Mitem.Form;
+                            MedicineObj.Route = Mitem.Route;
+                            MedicineObj.Quantity = Mitem.Quantity;
+                            MedicineObj.Dosage = Mitem.Dosage;
+                            MedicineObj.Frequency = Mitem.Frequency;
+                            MedicineObj.StartDate = Mitem.StartDate;
+                            MedicineObj.EndDate = Mitem.EndDate;
+                            MedicineObj.Instructions = Mitem.Instructions;
+                            MedicineObj.InstructionsNotes = Mitem.InstructionsNotes;
+                            MedicineObj.Status = Mitem.Status;
+                            MedicineList.Add(MedicineObj);
+                      }
+                }
+            }
+            ViewBag.Message = PatientResponseDetails();
+            return View(MedicineList);
+        }
+
 
         public IActionResult Privacy()
         {

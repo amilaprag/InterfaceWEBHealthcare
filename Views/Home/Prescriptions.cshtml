@@ -17,10 +17,10 @@
         @foreach (var item in Model)
         {
         <tr id="trData">
-            <th scope="row"><span class="pd-CourseId">@item.PrescriptionID</span></th>
+            <th scope="row"><span class="pd-PrescriptionID">@item.PrescriptionID</span></th>
             <td><span class="pd-CourseCode">@item.PrescriptionDate</span></td>
             <td>
-                <button type="button" class="btnEdit btn btn-danger btn-sm" name="btnEdit" id="btnEdit">View Medicine</button>
+                <button type="button" class="btnEdit btn btn-danger btn-sm"  onclick="location.href='@Url.Action("MedicineList","Home",new { GetPrescriptionID = item.PrescriptionID })'">View Medicine</button>
             </td>
             <td>
                 <button type="button" class="btn btn-success btn-sm" @*onclick="location.href='@Url.Action("Delete", "Course",new { Id = item.CourseId })'"*@>Remove From List </button>

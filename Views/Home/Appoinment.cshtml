@@ -2,28 +2,30 @@
     ViewData["Title"] = "Privacy Policy";
 }
 
-<script type="text/javascript">
-            $(function () {
-                $("#datetimepicker1").datetimepicker();
-            });
-    </script>
+
+
 
 <div class="card align-content-center" style="width:45rem;">
-        <img class="card-img-top" src="http://127.0.0.1:8887/Appoinment.jpg"  height="155" width="140" alt="Card image cap">
-        <div class="card-body">
-            <form class="form-inline">
-                <div class="form-group mx-sm-3 mb-2">
-                    <label for="inputPassword2" class="form-control">Problem Brief</label>
-                    <input type="text" class="form-control" id="inputPassword2" placeholder="Password">
-                </div>
-            </form>
-            <div class="form-group row">
-                <label for="example-datetime-local-input" class="col-2 col-form-label">Date and time</label>
-                <div class="col-10">
-                    <input class="form-control" type="datetime"  id="example-datetime-local-input">
+    <img class="card-img-top" src="http://127.0.0.1:8887/Appoinment.jpg" height="155" width="140" alt="Card image cap">
+    <div class="card-body">
+        <div class="form-group row">
+            <label for="example-datetime-local-input" class="col-5 col-form-label">Date and time</label>
+            <div class="col-5">
+                <input class="form-control" type="datetime-local" id="example-datetime-local-input" placeholder="Select date and time">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="example-datetime-local-input" class="col-5 col-form-label">Problem Brief</label>
+            <div class="col-5">
+                <input class="form-control row-3" type="text" cla id="Problem" placeholder="Write Problem Briefly">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-5"></div>
+                <div class="col-5">
+                    <button type="submit" class="btn btn-sm btn-primary w-100 h-5" onclick="location.href='@Url.Action("PostAppoinment","Home")'">Make an Appoinment</button>
                 </div>
             </div>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         </div>
-    </div>
+</div>
 
