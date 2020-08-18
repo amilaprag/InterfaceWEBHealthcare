@@ -1,110 +1,137 @@
-﻿
+﻿@using InterfaceWEBHealthcare.Models.Appoinment;
+@model List<Appoinments>;
 
 @{
-    Layout = "~/Views/Shared/_LayoutDoctor.cshtml";
-    ViewData["Title"] = "Home Page";
+    //Layout = "~/Views/Shared/_LayoutDoctor.cshtml";
+    ViewData["Title"] = "Privacy Policy";
     var data = ViewBag.Message;
 }
 
-<div class="row mb-auto">
-    <div class="col-md-4">
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="http://127.0.0.1:8887/profile.png" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">User Profile : @data.PatientDetails.PatientData.Alias</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Name : @data.PatientDetails.PatientData.Name</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Vestibulum at eros</li>
-            </ul>
-            <div class="card-body">
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-8">
-        <div class="card border-primary mb-3 align-content-center" style="max-width: 45rem;">
-            <div class="card-header text-primary">
-                <center> <h5 class="card-title">Find Best Hospital</h5></center>
-            </div>
-            <div class="card-body text-primary">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label for="exampleInputEmail1">Location Type : </label>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                <label class="form-check-label" for="inlineCheckbox1">Select Location</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                <label class="form-check-label" for="inlineCheckbox2">Current Location</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label for="exampleInputEmail1">Select Location</label>
-                        </div>
-                        <div class="col-md-4">
-                            <select class="form-control" name="cars" id="cars">
-                                <option value="volvo">Homagama</option>
-                                <option value="saab">Hgama</option>
-                                <option value="mercedes">Homa</option>
-                                <option value="audi">ama</option>
-                            </select>
-                        </div>
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#tblDataTable").on('click', '.btnEdit', function () {
+                // get the current row
+                var currentRow = $(this).closest("tr");
 
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-6">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        </div>
+
+                // alert(BatchId)
+                // console.log(BatchId)
+                var appoinmentsID = currentRow.find(".pd-AppoinmentsID").html();
+                var timeSlot = currentRow.find(".pd-TimeSlot").html();
+                var age = currentRow.find(".pd-Age").val();
+                var problemBrief = currentRow.find(".pd-ProblemBrief").val();
+                var appoinmentDate = currentRow.find(".pd-AppoinmentDate").html();
+                var appoinmentsStatus = currentRow.find(".pd-AppoinmentsStatus").html();
+
+
+                var myModal = $("#mdlEdit");
+
+                // and set them in the modal:
+                // $('.CourseTypeId', myModal).val(CourseTypeId);
+                $(".modal-body #EAppoinmentsID", myModal).val(appoinmentsID);
+                $(".modal-body #EAppoinmentDate", myModal).val(appoinmentDate);
+                $(".modal-body #EAppoinmentsStatus", myModal).val(appoinmentsStatus);
+                $(".modal-body #ETimeSlot", myModal).val(timeSlot);
+                $(".modal-body #EAge", myModal).val(age);
+                $(".modal-body #EProblemBrief", myModal).val(problemBrief);
+
+                // and finally show the modal
+                myModal.modal({ show: true });
+                return false;
+            });
+        });
+    </script>
+}
+
+
+
+<table class="table table-bordered table-dark" id="tblDataTable">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Appoinment Id</th>
+            <th scope="col">Appoinment Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Time</th>
+            <th colspan="2" class="text-md-center">Operations</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="trData">
+                <th scope="row"><span class="pd-AppoinmentsID text-primary">@item.AppoinmentsID</span></th>
+                <td><span class="pd-AppoinmentDate">@item.AppoinmentDate</span></td>
+                <td><span class="pd-AppoinmentsStatus">@item.AppoinmentsStatus</span></td>
+                <td>
+                    <span class="pd-TimeSlot">@item.TimeSlot</span>
+                    <input type="hidden" class="pd-Age" naem="Age" value="@item.Age" />
+                    <input type="hidden" class="pd-ProblemBrief" naem="ProblemBrief" value="@item.ProblemBrief" />
+                </td>
+                <td>
+                    <button type="button" class="btnEdit btn btn-success btn-sm" name="btnEdit" id="btnEdit">Check Appoinment</button>
+
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" @*onclick="location.href='@Url.Action("Delete", "Course",new { Id = item.CourseId })'"*@>PostPone Appoinment</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@*MOdal*@
+<div class="modal fade" id="mdlEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mdlEditTitle">Appoinment Details</h5>
+                <button type="button" class="close btn-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="Appoinments ID" class="col-sm-4 col-form-label">Appoinments ID</label>
+                    <div class="col-sm-5">
+                        <input type="text" readonly class="form-control" name="EAppoinmentsID" id="EAppoinmentsID" required="" value="">
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-4 align-content-between">
-                            <button type="button" class="btn  btn-sm btn-outline-primary " style="width:220px">Primary</button>
-                        </div>
+                <div class="form-group row">
+                    <label for="Appoinment Date" class="col-sm-4 col-form-label">Appoinment Date</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" name="EAppoinmentDate" id="EAppoinmentDate" required="" value="" readonly>
                     </div>
                 </div>
-                <div class="card-group">
-                    <div class="card">
-                        @*<img src="..." class="card-img-top" alt="...">*@
-                        <div class="card-body text-light bg-info">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
+                <div class="form-group row">
+                    <label for="TimeSlot" class="col-sm-4 col-form-label">TimeSlot</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" name="ETimeSlot" id="ETimeSlot" required value="" readonly>
                     </div>
-                    <div class="card">
-                        @*<img src="..." class="card-img-top" alt="...">*@
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Age" class="col-sm-4 col-form-label">Age</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" name="EAge" id="EAge" required value="" readonly>
                     </div>
-                    <div class="card">
-                        @*<img src="..." class="card-img-top" alt="...">*@
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Problem Brief" class="col-sm-4 col-form-label">Problem Brief</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" name="EProblemBrief" id="EProblemBrief" required value="" readonly>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <span>
+                        <button type="button" class="btnEdit btn btn-success btn-sm" name="btnEdit" id="btnEdit">Medicle History</button>
+                    </span>
+                    <span>
+                        <button type="button" class="btnEdit btn btn-success btn-sm" name="btnEdit" id="btnEdit">Add Treatments</button>
+                    </span>
+                    <span>
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    </span>
                 </div>
             </div>
         </div>

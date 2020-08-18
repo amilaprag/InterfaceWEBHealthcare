@@ -24,10 +24,12 @@ namespace InterfaceWEBHealthcare.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+
+        public PatientResponse DoctorResponseDetails()
         {
             using (var client = new HttpClient())
             {
+                PatientResponse PatientResponseReturnObj = new PatientResponse();
                 client.BaseAddress = new Uri("https://localhost:5001/EHealthCareAPI/");
 
                 PatientMasterData PatientMasterDataObj = new PatientMasterData();
@@ -45,11 +47,38 @@ namespace InterfaceWEBHealthcare.Controllers
                     var response = result.Content.ReadAsAsync<PatientResponse>();
                     response.Wait();
 
-                    ViewBag.Message  = response.Result;
-                    return View();
+                    PatientResponseReturnObj = response.Result;
+                    return PatientResponseReturnObj;
+                }
+                return PatientResponseReturnObj;
+            }
+        }
+
+        public IActionResult Index()
+        {
+            List<Appoinments> AppoinmentsList = null;
+            using (var client = new HttpClient())
+            {
+                string TraaceId = "1123";
+                int DoctorID = 1013;
+                string AuthKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFtaWxhcHJhZ2VldGhAZ21haWwuY29tIiwibmFtZWlkIjoiYW1pbGFwcmFnZWV0aEBnbWFpbC5jb20iLCJyb2xlIjoicGF0aWVudCIsIm5iZiI6MTU5Njk4MzEwOCwiZXhwIjoxNjAxNzgzMTA4LCJpYXQiOjE1OTY5ODMxMDgsImlzcyI6Imh0dHA6Ly9teXNpdGUuY29tIiwiYXVkIjoiaHR0cDovL215YXVkaWVuY2UuY29tIn0.9DwOuSeERmBuKNRzm-Tyu51I3UjlG2GZFAPleLdkr5U";
+
+                client.BaseAddress = new Uri("https://localhost:5001/EHealthCareAPI/Doctor/MyAppoinment/");
+                //HTTP GET
+                var responseTask = client.GetAsync(TraaceId + "/" + DoctorID + "/" + AuthKey);
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<List<Appoinments>>();
+                    readTask.Wait();
+
+                    AppoinmentsList = readTask.Result;
                 }
             }
-            return View();
+            ViewBag.Message = DoctorResponseDetails();
+            return View(AppoinmentsList);
         }
         
         public IActionResult Appoinment()
