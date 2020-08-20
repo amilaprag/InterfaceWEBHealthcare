@@ -7,120 +7,171 @@
 @section Scripts
 {
     <script type="text/javascript">
-            $(document).ready(function () {
-                $("#tblDataTable").on('click', '.btnEdit', function () {
-                    // get the current row
-                    var currentRow = $(this).closest("tr");
+        $(document).ready(function () {
+            $("#tblDataTable").on('click', '.btnEdit', function () {
+                // get the current row
+                var currentRow = $(this).closest("tr");
 
 
-                    // alert(BatchId)
-                    // console.log(BatchId)
-                    var appoinmentsID = currentRow.find(".pd-AppoinmentsID").html();
-                    var timeSlot = currentRow.find(".pd-TimeSlot").html();
-                    var age = currentRow.find(".pd-Age").val();
-                    var problemBrief = currentRow.find(".pd-ProblemBrief").val();
-                    var appoinmentDate = currentRow.find(".pd-AppoinmentDate").html();
-                    var appoinmentsStatus = currentRow.find(".pd-AppoinmentsStatus").html();
+                // alert(BatchId)
+                // console.log(BatchId)
+                var appoinmentsID = currentRow.find(".pd-AppoinmentsID").html();
+                var timeSlot = currentRow.find(".pd-TimeSlot").html();
+                var age = currentRow.find(".pd-Age").val();
+                var problemBrief = currentRow.find(".pd-ProblemBrief").val();
+                var appoinmentDate = currentRow.find(".pd-AppoinmentDate").html();
+                var appoinmentsStatus = currentRow.find(".pd-AppoinmentsStatus").html();
 
 
-                    var myModal = $("#mdlEdit");
+                var myModal = $("#mdlEdit");
 
-                    // and set them in the modal:
-                    // $('.CourseTypeId', myModal).val(CourseTypeId);
-                    $(".modal-body #EAppoinmentsID", myModal).val(appoinmentsID);
-                    $(".modal-body #EAppoinmentDate", myModal).val(appoinmentDate);
-                    $(".modal-body #EAppoinmentsStatus", myModal).val(appoinmentsStatus);
-                    $(".modal-body #ETimeSlot", myModal).val(timeSlot);
-                    $(".modal-body #EAge", myModal).val(age);
-                    $(".modal-body #EProblemBrief", myModal).val(problemBrief);
+                // and set them in the modal:
+                // $('.CourseTypeId', myModal).val(CourseTypeId);
+                $(".modal-body #EAppoinmentsID", myModal).val(appoinmentsID);
+                $(".modal-body #EAppoinmentDate", myModal).val(appoinmentDate);
+                $(".modal-body #EAppoinmentsStatus", myModal).val(appoinmentsStatus);
+                $(".modal-body #ETimeSlot", myModal).val(timeSlot);
+                $(".modal-body #EAge", myModal).val(age);
+                $(".modal-body #EProblemBrief", myModal).val(problemBrief);
 
-                    // and finally show the modal
-                    myModal.modal({ show: true });
-                    return false;
-                });
+                // and finally show the modal
+                myModal.modal({ show: true });
+                return false;
+            });
         });
     </script>
 }
 
-    <table class="table table-bordered table-dark" id="tblDataTable">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col">Appoinment Id</th>
-                <th scope="col">Appoinment Date</th>
-                <th scope="col">Status</th>
-                <th scope="col">Time</th>
-                <th colspan="2" class="text-md-center">Operations</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr id="trData">
-                    <th scope="row"><span class="pd-AppoinmentsID text-primary">@item.AppoinmentsID</span></th>
-                    <td><span class="pd-AppoinmentDate">@item.AppoinmentDate</span></td>
-                    <td><span class="pd-AppoinmentsStatus">@item.AppoinmentsStatus</span></td>
-                    <td>
-                        <span class="pd-TimeSlot">@item.TimeSlot</span>
-                        <input type="hidden" class="pd-Age" naem="Age" value="@item.Age" />
-                        <input type="hidden" class="pd-ProblemBrief" naem="ProblemBrief" value="@item.ProblemBrief" />
-                    </td>
-                    <td>
-                        <button type="button" class="btnEdit btn btn-success btn-sm" name="btnEdit" id="btnEdit">View Full Details</button>
-                      
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-danger btn-sm" @*onclick="location.href='@Url.Action("Delete", "Course",new { Id = item.CourseId })'"*@>Cancell Appoinment</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<table class="table table-bordered table-dark" id="tblDataTable">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Appoinment Id</th>
+            <th scope="col">Appoinment Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Time</th>
+            <th colspan="2" class="text-md-center">Operations</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr id="trData">
+            <th scope="row"><span class="pd-AppoinmentsID text-primary">@item.AppoinmentsID</span></th>
+            <td><span class="pd-AppoinmentDate">@item.AppoinmentDate</span></td>
+            <td><span class="pd-AppoinmentsStatus">@item.AppoinmentsStatus</span></td>
+            <td>
+                <span class="pd-TimeSlot">@item.TimeSlot</span>
+                <input type="hidden" class="pd-Age" naem="Age" value="@item.Age" />
+                <input type="hidden" class="pd-ProblemBrief" naem="ProblemBrief" value="@item.ProblemBrief" />
+            </td>
+            <td>
+                <button type="button" class="btnEdit btn btn-success btn-sm" name="btnEdit" id="btnEdit">View Full Details</button>
 
-    @*MOdal*@
-    <div class="modal fade" id="mdlEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="mdlEditTitle">Appoinment Details</h5>
-                    <button type="button" class="close btn-light" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            </td>
+            @if (@item.AppoinmentsStatus == "Open")
+            {
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">Cancell Appoinment</button>
+                </td>
+            }
+            @if (@item.AppoinmentsStatus == "Close")
+            {
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal1">Remove Appoinment</button>
+                </td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>
+
+@*MOdal*@
+<div class="modal fade" id="mdlEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mdlEditTitle">Appoinment Details</h5>
+                <button type="button" class="close btn-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="Appoinments ID" class="col-sm-4 col-form-label">Appoinments ID</label>
+                    <div class="col-sm-5">
+                        <input type="text" readonly class="form-control" name="EAppoinmentsID" id="EAppoinmentsID" required="" value="">
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label for="Appoinments ID" class="col-sm-4 col-form-label">Appoinments ID</label>
-                        <div class="col-sm-5">
-                            <input type="text" readonly class="form-control" name="EAppoinmentsID" id="EAppoinmentsID" required="" value="" >
-                        </div>
+                <div class="form-group row">
+                    <label for="Appoinment Date" class="col-sm-4 col-form-label">Appoinment Date</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" name="EAppoinmentDate" id="EAppoinmentDate" required="" value="" readonly>
                     </div>
-                    <div class="form-group row">
-                        <label for="Appoinment Date" class="col-sm-4 col-form-label">Appoinment Date</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" name="EAppoinmentDate" id="EAppoinmentDate" required="" value="" readonly>
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label for="TimeSlot" class="col-sm-4 col-form-label">TimeSlot</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" name="ETimeSlot" id="ETimeSlot" required value="" readonly>
                     </div>
-                    <div class="form-group row">
-                        <label for="TimeSlot" class="col-sm-4 col-form-label">TimeSlot</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" name="ETimeSlot" id="ETimeSlot" required value="" readonly>
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Age" class="col-sm-4 col-form-label">Age</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" name="EAge" id="EAge" required value="" readonly>
                     </div>
-                    <div class="form-group row">
-                        <label for="Age" class="col-sm-4 col-form-label">Age</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" name="EAge" id="EAge" required value="" readonly>
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Problem Brief" class="col-sm-4 col-form-label">Problem Brief</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" name="EProblemBrief" id="EProblemBrief" required value="" readonly>
                     </div>
-                    <div class="form-group row">
-                        <label for="Problem Brief" class="col-sm-4 col-form-label">Problem Brief</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" name="EProblemBrief" id="EProblemBrief" required value="" readonly>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+@*//delete modal*@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cancell Appoinmnet</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure ? You are going to remove this Appoinment </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Cancell Appoinment</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*//delete modal*@
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModal1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Already Closed Appoinment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure ? You are going to delete this Appoinment List ? </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Remove Appoinment</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

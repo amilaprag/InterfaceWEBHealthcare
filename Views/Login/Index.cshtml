@@ -15,36 +15,37 @@
 <br />
 <br />
 <br />
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <center>
+        <div class="spinner-grow-sm-12">
 
-<center>
-    <div class="spinner-grow-sm-12">
+            <div class="form-group align-content-center row col-sm-9">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Email : </label>
+                <input type="email" class="form-control col-sm-5" id="inputEmail" name="inputEmail" placeholder="Email">
 
-        <div class="form-group align-content-center row col-sm-9">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">Email : </label>
-            <input type="email" class="form-control col-sm-5" id="inputEmail" name="inputEmail" placeholder="Email">
-
-        </div>
-        <div class="form-group row col-sm-9">
-            <label for="inputPassword3" class="col-sm-2 col-form-label">Password : </label>
-            <input type="password" class="form-control col-sm-5" id="inputPassword" name="inputPassword" placeholder="Password">
-        </div>
-
-        <div class="form-group row col-sm-9">
-            <label for="exampleFormControlSelect2" class="col-sm-2">Login As : </label>
-            <select class="form-control col-sm-5" id="exampleFormControlSelect" name="exampleFormControlSelect">
-                <option>Patient</option>
-                <option>Doctor</option>
-                <option>Other</option>
-            </select>
-        </div>
-
-        <div class="form-group row col-sm-9">
-            <div class="col-sm-5">
-                <button type="submit" class="btn btn-primary btn-sm w-35">Login</button>
             </div>
+            <div class="form-group row col-sm-9">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">Password : </label>
+                <input type="password" class="form-control col-sm-5" id="inputPassword" name="inputPassword" placeholder="Password">
+            </div>
+
+            <div class="form-group row col-sm-9">
+                <label for="exampleFormControlSelect2" class="col-sm-2">Login As : </label>
+                <select class="form-control col-sm-5" id="exampleFormControlSelect" name="exampleFormControlSelect">
+                    <option>Patient</option>
+                    <option>Doctor</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div class="form-group row col-sm-9">
+                <div class="col-sm-5">
+                    <button type="submit" class="btn btn-primary btn-sm w-35">Login</button>
+                </div>
+            </div>
+
         </div>
-
-    </div>
-</center>
-
+    </center>
+}
 

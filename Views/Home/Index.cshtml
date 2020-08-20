@@ -2,88 +2,162 @@
 @{
     ViewData["Title"] = "Home Page";
     var data = ViewBag.Message;
+
 }
 
+    <script>
 
-        <div class="card border-primary mb-3 align-content-center">
-            <div class="card-header text-primary">
-                <center> <h5 class="card-title">Find Best Hospital</h5></center>
+    var myJsVariable = '@ViewBag.Feedback'
+        function myFunction() {
+            if (myJsVariable=="Ok") {
+                $('#exampleModalCenter').modal('show')
+            }
+    }
+
+
+    function inlineCheckbox1() {
+        const cb = document.getElementById('inlineCheckbox1');
+        //alert(cb.checked);
+        if (cb.checked) {
+            $("#inlineCheckbox2").prop("disabled", true);
+        } else {
+            $("#inlineCheckbox2").prop("disabled", false);
+        }
+    }
+
+    function inlineCheckbox2() {
+        const cb = document.getElementById('inlineCheckbox2');
+        //alert(cb.checked);
+        if (cb.checked) {
+            $("#inlineCheckbox1").prop("disabled", true);
+            document.getElementById("selectlist").disabled = true;
+        } else {
+            $("#inlineCheckbox1").prop("disabled", false);
+            document.getElementById("selectlist").disabled = false;
+        }
+
+    }
+
+    </script>
+
+
+<body onload="myFunction()">
+
+
+    <div class="card border-primary mb-3 align-content-center">
+        <div class="card-header text-dark border-primary">
+            <center> <h5 class="card-title text-capitalize">Find Best Hospital</h5></center>
+        </div>
+        <div class="card-body text-primary bg-light">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="exampleInputEmail1">Location Type : </label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="inlineCheckbox1" value="" onchange="inlineCheckbox1()">
+                            <label class="form-check-label" for="inlineCheckbox1">Select Location</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="inlineCheckbox2" value="option2" onchange="inlineCheckbox2()">
+                            <label class="form-check-label" for="inlineCheckbox2">Current Location</label>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card-body text-primary">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label for="exampleInputEmail1">Location Type : </label>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                <label class="form-check-label" for="inlineCheckbox1">Select Location</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                <label class="form-check-label" for="inlineCheckbox2">Current Location</label>
-                            </div>
-                        </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="exampleInputEmail1">Select Location</label>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label for="exampleInputEmail1">Select Location</label>
-                        </div>
-                        <div class="col-md-4">
-                            <select class="form-control" name="cars" id="cars">
-                                <option value="volvo">Homagama</option>
-                                <option value="saab">Hgama</option>
-                                <option value="mercedes">Homa</option>
-                                <option value="audi">ama</option>
-                            </select>
-                        </div>
+                    <div class="col-md-4">
+                        <select class="form-control" required id="selectlist">
+                            <option value="Homagama">Homagama</option>
+                            <option value="Panagoda">Panagoda</option>
+                            <option value="Kottawa">Kottawa</option>
+                            <option value="Dehiwala">Dehiwala</option>
+                            <option value="Gampaha">Gampaha</option>
+                            <option value="Kirulapana">Kirulapana</option>
+                            <option value="Dematagoda">Dematagoda</option>
+                        </select>
+                    </div>
 
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-6">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <small id="emailHelp" class="form-text text-muted">Service Available areas on the list </small>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-4 align-content-between">
-                            <button type="button" class="btn  btn-sm btn-outline-primary " style="width:220px">Primary</button>
-                        </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-4 align-content-between">
+                        <button type="button" class="btn  btn-sm btn-primary " style="width:220px" onclick="location.href='@Url.Action("Hospitals", "Home")'">Search</button>
                     </div>
                 </div>
-                <div class="card-group">
-                    <div class="card">
-                        @*<img src="..." class="card-img-top" alt="...">*@
-                        <div class="card-body text-light bg-info">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
+            </div>
+            <div class="card-group">
+                <div class="card">
+                    @*<img src="..." class="card-img-top" alt="...">*@
+                    <div class="card-body text-light bg-info">
+                        <h5 class="card-title">Welcome</h5>
+                        <p class="card-text">
+                            Hospital has been a trusted name in Sri Lankan healthcare for more than seven decades. Since our foundation in 1945, we have built a reputation for regional leadership in medical excellence and innovation, based on a simple philosophy: that improving the health of our community should be driven by passion as well as compassion.
+                            We offer the best consultants customer satisfaction.
+                        </p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
-                    <div class="card">
-                        @*<img src="..." class="card-img-top" alt="...">*@
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
+                </div>
+                <div class="card">
+                    @*<img src="..." class="card-img-top" alt="...">*@
+                    <div class="card-body bg-success text-light">
+                        <h5 class="card-title">Health Check ups</h5>
+                        <p class="card-text">
+                            Make an appointment with our panel of expert physicians and learn about maintaining a
+                            wholesome lifestyle and good health.Our  laboratory network spreading across 86 branches comprises of 06 medical centres, 08 main laboratories, 18 mini labs and 54 collection centres islandwide.
+                        </p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
-                    <div class="card">
-                        @*<img src="..." class="card-img-top" alt="...">*@
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
+                </div>
+                <div class="card">
+                    @*<img src="..." class="card-img-top" alt="...">*@
+                    <div class="card-body bg-info text-light">
+                        <h5 class="card-title">Our Culture</h5>
+                        <p class="card-text">
+                            We work hard to ensure our staff are as proud of us as we are of them. The standards we set for care and service are high. Our team members rise to the challenge, going above and beyond to meet and exceed those standards every time.
+                            he bottom up, and we empower staff across all levels to share their insights..
+                        </p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    @*//feedback*@
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>

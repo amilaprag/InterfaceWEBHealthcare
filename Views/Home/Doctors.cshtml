@@ -18,28 +18,28 @@
                         </tr>
                         <tr>
                             <td class="bg-info">
-                                <label class="text-white" for="exampleFormControlInput1"><i class="fas fa-clinic-medical"></i> Hospital Name :@item.Surname+" "+@item.Name </label>
+                                <label class="text-white" for="exampleFormControlInput1"><i class="fas fa-clinic-medical"></i> Hospital Name :@item.Surname @item.Name </label>
                             </td>
                         </tr>
                         <tr>
                             <td class="bg-info">
-                                <label class="text-white" for="exampleFormControlInput1"><i class="far fa-address-card"></i> Hospital Adress : @item.Department</label>
+                                <label class="text-white" for="exampleFormControlInput1"><i class="far fa-address-card"></i> Department : @item.Department</label>
                             </td>
                         </tr>
                         <tr>
                             <td class="bg-info">
-                                <label class="text-white" for="exampleFormControlInput1"><i class="fas fa-phone-square-alt"></i> Hospital Telephone Number : @item.OfficeNumber</label>
+                                <label class="text-white" for="exampleFormControlInput1"><i class="fas fa-phone-square-alt"></i>Telephone Number : @item.OfficeNumber</label>
                             </td>
                         </tr>
                         <tr>
                             <td class="bg-info">
-                                <label class="text-white" for="exampleFormControlInput1"><i class="far fa-thumbs-up"></i> Positive Feedback Rate : @item.Email</label>
+                                <label class="text-white" for="exampleFormControlInput1"><i class="far fa-thumbs-up"></i> Email : @item.Email</label>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <span class="col-md-5">
-                                    <button type="button" class="btn btn-sm btn-primary w-25 h-5">Select Hospital</button>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="location.href='@Url.Action("Appoinment", "Home")'">Make Appoinment</button>
                                 </span>
                             </td>
                         </tr>

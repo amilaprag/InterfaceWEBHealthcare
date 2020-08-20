@@ -9,20 +9,26 @@ namespace InterfaceWEBHealthcare.Controllers
 {
     public class LoginController : Controller
     {
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public IActionResult Index(IFormCollection FormData)
         {
-            var userType = FormData[""];
-            if (userType=="patient")
+            var userType = FormData["exampleFormControlSelect"];
+            if (userType == "Patient")
             {
-                return RedirectToAction();
+                return RedirectToAction("Index", "Home");
             }
-            else if (userType == "doctor")
+            else if (userType == "Doctor")
             {
-                return RedirectToAction();
+                return RedirectToAction("Index", "Doctor");
             }
             else if (userType == "Admin")
             {
-                return RedirectToAction();
+                return RedirectToAction("Index", "Admin");
             }
             return View();
         }

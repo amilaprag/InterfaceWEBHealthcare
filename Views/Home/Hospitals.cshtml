@@ -4,6 +4,9 @@
     ViewData["Title"] = "Privacy Policy";
 }
 
+<center>
+<h3>Find Best Hospital For Ensure Your Health</h3>
+</center>
 <script src="https://kit.fontawesome.com/7b9211943c.js" crossorigin="anonymous"></script>
 
 @foreach (var item in Model)
@@ -33,13 +36,13 @@
                         </tr>
                         <tr>
                             <td class="bg-info">
-                                <label class="text-white" for="exampleFormControlInput1"><i class="far fa-thumbs-up"></i> Positive Feedback Rate : @item.PositiveFeedbacks</label>
+                                <label class="text-white" for="exampleFormControlInput1"><i class="far fa-thumbs-up"></i> Positive Feedback Rate : @item.PositiveFeedbacks <span>%</span></label>
                             </td>
                         </tr>
                         <tr>
-                            <td class="bg-info">
+                            @*<td class="bg-info">
                                 <label class="text-white" for="exampleFormControlInput1"><i class="fas fa-subway"></i> Hospital Distance : @item.Distance</label>
-                            </td>
+                            </td>*@
                         </tr>
                         <tr >
                             <td colspan="2" class="bg-light text-primary">
@@ -65,7 +68,7 @@
                                     <button type="button" class="btn btn-link">More Info</button>
                                 </span>
                                 <span class="col-md-5">
-                                    <button type="button" class="btn btn-sm btn-primary w-25 h-5">Select Hospital</button>
+                                    <button type="button" class="btn btn-sm btn-primary w-25 h-5" onclick="location.href='@Url.Action("Doctors", "Home")'">Select Hospital</button>
                                 </span>
                             </td>
                         </tr>

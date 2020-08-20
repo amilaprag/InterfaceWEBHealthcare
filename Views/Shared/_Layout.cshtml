@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - InterfaceWEBHealthcare</title>
+    <title>@ViewData["Title"] - EHealthcare</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
@@ -15,7 +15,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">InterfaceWEBHealthcare</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EHealthcare</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -27,7 +27,13 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="MyAppoinments">My Appoinments</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Prescriptions">Medicle History</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -41,17 +47,18 @@
                 <div class="card" style="width: auto;">
                     <img class="card-img-top" src="http://127.0.0.1:8887/profile.png" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">User Profile : @data.PatientDetails.PatientData.Alias</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h5 class="card-title">Profile : @data.PatientDetails.PatientData.Alias</h5>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Name : @data.PatientDetails.PatientData.Name</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
+                        <li class="list-group-item">Name  : @data.PatientDetails.PatientData.Name</li>
+                        <li class="list-group-item">D.O.B : @data.PatientDetails.PatientData.DateOfBirth</li>
+                        <li class="list-group-item">Gender: @data.PatientDetails.PatientData.Gender</li>
+                        <li class="list-group-item">MobileNumber :@data.PatientDetails.PatientData.MobileNumber</li>
+                        <li class="list-group-item">email : @data.PatientDetails.PatientData.Email</li>
                     </ul>
                     <div class="card-body">
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
+                        <a href="https://localhost:44390/Login" class="card-link">Edit Profile</a>
+                        <a href="https://localhost:44390/Login" class="card-link">Sign Out</a>
                     </div>
                 </div>
             </div>
@@ -65,7 +72,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - InterfaceWEBHealthcare - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - EHealthcare - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policies</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

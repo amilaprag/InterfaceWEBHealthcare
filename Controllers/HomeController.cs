@@ -78,9 +78,11 @@ namespace InterfaceWEBHealthcare.Controllers
                     response.Wait();
 
                     ViewBag.Message  = response.Result;
+                    ViewBag.Feedback = "Ok";
                     return View();
                 }
             }
+      
             return View();
         }
 
@@ -182,6 +184,7 @@ namespace InterfaceWEBHealthcare.Controllers
                     DoctorDataList = readTask.Result;
                 }
             }
+            ViewBag.Message = PatientResponseDetails();
             return View(DoctorDataList);
         }
 
