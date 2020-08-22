@@ -2,69 +2,86 @@
     ViewData["Title"] = "Privacy Policy";
 }
 
+@{
+    Layout = "~/Views/Shared/_LayoutDoctor.cshtml";
+    var data = ViewBag.Medicine;
+}
 
-    <form class="needs-validation" novalidate>
-        <div class="form-row">
-            <div class="col-md-4 mb-3">
-                <label for="validationCustom01">First name</label>
-                <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-4 mb-3">
-                <label for="validationCustom02">Last name</label>
-                <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-4 mb-3">
-                <label for="validationCustomUsername">Username</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroupPrepend"></span>
-                    </div>
-                    <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
-                    <div class="invalid-feedback">
-                        Please choose a username.
-                    </div>
-                </div>
-            </div>
+
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Patient Name</label>
+            <input type="text" class="form-control" id="inputEmail4" readonly value="">
         </div>
-        <div class="form-row">
-            <div class="col-md-6 mb-3">
-                <label for="validationCustom03">City</label>
-                <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
-                <div class="invalid-feedback">
-                    Please provide a valid city.
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <label for="validationCustom04">State</label>
-                <input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
-                <div class="invalid-feedback">
-                    Please provide a valid state.
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <label for="validationCustom05">Zip</label>
-                <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
-                <div class="invalid-feedback">
-                    Please provide a valid zip.
-                </div>
-            </div>
+        <div class="form-group col-md-6">
+            <label for="inputPassword4">Doctor Name</label>
+            <input type="text" class="form-control" id="inputPassword4" readonly value="">
         </div>
-        <div class="form-group">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                <label class="form-check-label" for="invalidCheck">
-                    Agree to terms and conditions
-                </label>
-                <div class="invalid-feedback">
-                    You must agree before submitting.
-                </div>
-            </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">startDate</label>
+            <input type="text" class="form-control" id="startDate" name="startDate" value="">
         </div>
-        <button class="btn btn-primary" type="submit">Submit form</button>
-    </form>
+        <div class="form-group col-md-6">
+            <label for="inputPassword4">endDate</label>
+            <input type="text" class="form-control" id="endDate" name="endDate" readonly value="">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">instructions</label>
+            <input type="text" class="form-control" id="instructions" name="instructions" readonly value="">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputPassword4">instructionsNotes</label>
+            <input type="text" class="form-control" id="instructionsNotes" name="instructionsNotes" readonly value="">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Sign in</button>
+</form>
+
+
+
+
+
+<table class="table table-bordered table-dark" id="tblDataTable">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">startDate</th>
+            <th scope="col">endDate</th>
+            <th scope="col">instructions</th>
+            <th scope="col">instructionsNotes</th>
+            <th scope="col">status</th>
+            <th scope="col">dosage</th>
+            <th scope="col">quantity</th>
+            <th scope="col">route</th>
+            <th scope="col">form</th>
+            <th scope="col">frequency</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (@data.Medicine != null)
+        {
+            @foreach (var item in @data.Medicine)
+            {
+                <tr id="trData">
+                    <td><span class="pd-AppoinmentDate">@item.StartDate</span></td>
+                    <td><span class="pd-AppoinmentsStatus">@item.EndDate</span></td>
+                    <td><span class="pd-AppoinmentDate">@item.Instructions</span></td>
+                    <td><span class="pd-AppoinmentsStatus">@item.InstructionsNotes</span></td>
+                    <td><span class="pd-AppoinmentDate">@item.Status</span></td>
+                    <td><span class="pd-AppoinmentsStatus">@item.Dosage</span></td>
+                    <td><span class="pd-AppoinmentDate">@item.Quantity</span></td>
+                    <td><span class="pd-AppoinmentsStatus">@item.Route</span></td>
+                    <td><span class="pd-AppoinmentDate">@item.Form</span></td>
+                    <td><span class="pd-AppoinmentsStatus">@item.Frequency</span></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+

@@ -2,9 +2,9 @@
 @model List<Appoinments>;
 
 @{
-    //Layout = "~/Views/Shared/_LayoutDoctor.cshtml";
-    ViewData["Title"] = "Privacy Policy";
     var data = ViewBag.Message;
+    ViewData["Title"] = "Privacy Policy";
+    Layout = "~/Views/Shared/_LayoutDoctor.cshtml";
 }
 
 @section Scripts
@@ -45,41 +45,62 @@
     </script>
 }
 
+<div class="row">
+    <div class="col-md-5">
+        <center>
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Today</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tommorow</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Upcoming</a>
+                </li>
+            </ul>
+        </center>
+    </div>
+</div>
 
+<br />
 
-<table class="table table-bordered table-dark" id="tblDataTable">
-    <thead class="thead-light">
-        <tr>
-            <th scope="col">Appoinment Id</th>
-            <th scope="col">Appoinment Date</th>
-            <th scope="col">Status</th>
-            <th scope="col">Time</th>
-            <th colspan="2" class="text-md-center">Operations</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr id="trData">
-                <th scope="row"><span class="pd-AppoinmentsID text-primary">@item.AppoinmentsID</span></th>
-                <td><span class="pd-AppoinmentDate">@item.AppoinmentDate</span></td>
-                <td><span class="pd-AppoinmentsStatus">@item.AppoinmentsStatus</span></td>
-                <td>
-                    <span class="pd-TimeSlot">@item.TimeSlot</span>
-                    <input type="hidden" class="pd-Age" naem="Age" value="@item.Age" />
-                    <input type="hidden" class="pd-ProblemBrief" naem="ProblemBrief" value="@item.ProblemBrief" />
-                </td>
-                <td>
-                    <button type="button" class="btnEdit btn btn-success btn-sm" name="btnEdit" id="btnEdit">Check Appoinment</button>
-
-                </td>
-                <td>
-                    <button type="button" class="btn btn-danger btn-sm" @*onclick="location.href='@Url.Action("Delete", "Course",new { Id = item.CourseId })'"*@>PostPone Appoinment</button>
-                </td>
+<div class="row">
+    <table class="table table-bordered table-dark mb-3 " id="tblDataTable">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Appoinment Id</th>
+                <th scope="col">Appoinment Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Time</th>
+                <th colspan="2" class="text-md-center">Operations</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr id="trData">
+                    <th scope="row"><span class="pd-AppoinmentsID text-primary">@item.AppoinmentsID</span></th>
+                    <td><span class="pd-AppoinmentDate">@item.AppoinmentDate</span></td>
+                    <td><span class="pd-AppoinmentsStatus">@item.AppoinmentsStatus</span></td>
+                    <td>
+                        <span class="pd-TimeSlot">@item.TimeSlot</span>
+                        <input type="hidden" class="pd-Age" naem="Age" value="@item.Age" />
+                        <input type="hidden" class="pd-ProblemBrief" naem="ProblemBrief" value="@item.ProblemBrief" />
+                    </td>
+                    <td>
+                        <button type="button" class="btnEdit btn btn-success btn-sm" name="btnEdit" id="btnEdit">Check Appoinment</button>
+
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">PostPone Appoinment</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
 
 @*MOdal*@
 <div class="modal fade" id="mdlEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -124,10 +145,50 @@
                 </div>
                 <div class="modal-footer">
                     <span>
-                        <button type="button" class="btnEdit btn btn-success btn-sm" name="btnEdit" id="btnEdit">Medicle History</button>
+                        <button type="button" class="btnEdit btn btn-success btn-sm" name="btnEdit" id="btnEdit" onclick="location.href='@Url.Action("Prescriptions","Doctor")'">Medicle History</button>
                     </span>
                     <span>
                         <button type="button" class="btnEdit btn btn-success btn-sm" name="btnEdit" id="btnEdit">Add Treatments</button>
+                    </span>
+                    <span>
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mdlEditTitle">Appoinment Details</h5>
+                <button type="button" class="close btn-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="example-datetime-local-input" class="col-md-5 col-form-label">Re-Arrangement</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="datetime-local" id="example-datetime-local-input" placeholder="Select date and time">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="example-datetime-local-input" class="col-md-5 col-form-label">Reason</label>
+                    <select class="form-control col-md-5" id="exampleFormControlSelect2">
+                        <option>Absent Of Patient</option>
+                        <option>Laeave</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <span>
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Save</button>
                     </span>
                     <span>
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>

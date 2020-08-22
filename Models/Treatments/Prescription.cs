@@ -18,6 +18,10 @@ namespace InterfaceWEBHealthcare.Models.Treatments
 
         private string diagnosis;
 
+        //public string PatientName { get ; set; }
+        //public string DoctorName { get; set; }
+
+
 
         public int PrescriptionID { get => prescriptionID; set => prescriptionID = value; }
         public DateTime PrescriptionDate { get => prescriptionDate; set => prescriptionDate = value; }

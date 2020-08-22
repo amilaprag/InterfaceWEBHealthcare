@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using InterfaceWEBHealthcare.Models;
 using System.Net.Http;
-using InterfaceWEBHealthcare.Models.Patient;
 using InterfaceWEBHealthcare.Models.StaticData;
 using InterfaceWEBHealthcare.Models.Doctors;
 using InterfaceWEBHealthcare.Models.Appoinment;
@@ -25,32 +22,34 @@ namespace InterfaceWEBHealthcare.Controllers
         }
 
 
-        public PatientResponse DoctorResponseDetails()
+        public DoctorResponseData DoctorResponseDetails()
         {
             using (var client = new HttpClient())
             {
-                PatientResponse PatientResponseReturnObj = new PatientResponse();
+                DoctorResponseData DoctorDetailsReturnObj = new DoctorResponseData();
+                DoctorResponse DoctorDetailsobj = new DoctorResponse();
+
                 client.BaseAddress = new Uri("https://localhost:5001/EHealthCareAPI/");
 
-                PatientMasterData PatientMasterDataObj = new PatientMasterData();
-                PatientMasterDataObj.Authkey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFtaWxhcHJhZ2VldGhAZ21haWwuY29tIiwibmFtZWlkIjoiYW1pbGFwcmFnZWV0aEBnbWFpbC5jb20iLCJyb2xlIjoicGF0aWVudCIsIm5iZiI6MTU5Njg4NDgxNCwiZXhwIjoxNjAxNjg0ODE0LCJpYXQiOjE1OTY4ODQ4MTQsImlzcyI6Imh0dHA6Ly9teXNpdGUuY29tIiwiYXVkIjoiaHR0cDovL215YXVkaWVuY2UuY29tIn0.VtV9yxsVvGhOyfB55L0H3R0yvifVJOe-D28bpT_KpqM";
-                PatientMasterDataObj.Username = "prageeth1@gmail.com";
-                PatientMasterDataObj.Password = "123abcd";
-                PatientMasterDataObj.TraceId = "123456";
+                Doctor DoctorObj = new Doctor();
+                DoctorObj.Authkey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFtaWxhcHJhZ2VldGhAZ21haWwuY29tIiwibmFtZWlkIjoiYW1pbGFwcmFnZWV0aEBnbWFpbC5jb20iLCJyb2xlIjoicGF0aWVudCIsIm5iZiI6MTU5ODEyMDIxNiwiZXhwIjoxNjAyOTIwMjE2LCJpYXQiOjE1OTgxMjAyMTYsImlzcyI6Imh0dHA6Ly9teXNpdGUuY29tIiwiYXVkIjoiaHR0cDovL215YXVkaWVuY2UuY29tIn0.3AhOM-XP1oSMdODPGX6sjMHqdUFeexOqQInRu1l9a-o";
+                DoctorObj.Username = "Doctor2@gmail.com";
+                DoctorObj.Password = "123@#";
+                DoctorObj.TraceId = "123456";
 
-                var postTask = client.PostAsJsonAsync<PatientMasterData>("Patient/ValidatePatientRS", PatientMasterDataObj);
+                var postTask = client.PostAsJsonAsync<Doctor>("Doctor/ValidateDoctortRS", DoctorObj);
                 postTask.Wait();
 
                 var result = postTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    var response = result.Content.ReadAsAsync<PatientResponse>();
+                    var response = result.Content.ReadAsAsync<DoctorResponse>();
                     response.Wait();
 
-                    PatientResponseReturnObj = response.Result;
-                    return PatientResponseReturnObj;
+                    DoctorDetailsobj = response.Result;
                 }
-                return PatientResponseReturnObj;
+                DoctorDetailsReturnObj= DoctorDetailsobj.DoctorDetails.DoctorResponseData;
+                return DoctorDetailsReturnObj;
             }
         }
 
@@ -169,17 +168,16 @@ namespace InterfaceWEBHealthcare.Controllers
 
         public IActionResult Prescriptions()
         {
+            List<Prescription> PrescriptionsList = null;
             using (var client = new HttpClient())
             {
-                List<Prescription> PrescriptionsList = null;
-
                 string TraaceId = "1123";
                 int PatientMasterID = 3001;
                 string AuthKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFtaWxhcHJhZ2VldGhAZ21haWwuY29tIiwibmFtZWlkIjoiYW1pbGFwcmFnZWV0aEBnbWFpbC5jb20iLCJyb2xlIjoicGF0aWVudCIsIm5iZiI6MTU5MTY0NDUzOSwiZXhwIjoxNTk2NDQ0NTM5LCJpYXQiOjE1OTE2NDQ1MzksImlzcyI6Imh0dHA6Ly9teXNpdGUuY29tIiwiYXVkIjoiaHR0cDovL215YXVkaWVuY2UuY29tIn0.kuxSi6EkCIH50fO9C6o2-KHWvZ3G6C_1nrcCSV-FRic";
 
                 client.BaseAddress = new Uri("https://localhost:5001/EHealthCareAPI/Treatments/");
-                //HTTP GET
-                var responseTask = client.GetAsync("treatMenthistory/"+PatientMasterID + "/" + TraaceId + "/" + AuthKey);
+             
+                var responseTask = client.GetAsync("treatMenthistory/" + PatientMasterID + "/" + TraaceId + "/" + AuthKey);
                 responseTask.Wait();
 
                 var result = responseTask.Result;
@@ -191,7 +189,14 @@ namespace InterfaceWEBHealthcare.Controllers
                     PrescriptionsList = readTask.Result;
                 }
             }
-            return View();
+
+            //Prescription PrescriptionObj= new Prescription();
+            //List<Medicine> MedicineObj = new List<Medicine>();
+
+            //PrescriptionObj.Medicine = MedicineObj;
+            //ViewBag.Medicine = PrescriptionObj;
+            ViewBag.Message = DoctorResponseDetails();
+            return View(PrescriptionsList);
         }
 
         public IActionResult Privacy()
